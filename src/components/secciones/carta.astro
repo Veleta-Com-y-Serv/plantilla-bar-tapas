@@ -1,0 +1,80 @@
+---
+// La carta: titular y, debajo, `platos` [{nombre, texto, precio, categoria, destacado}] agrupados por `categoria`
+// (Tapas, Raciones, Bocadillos, Para beber…) en el orden en que aparecen: cada grupo con su nombre en mayúsculas
+// sobre un filete y los platos en filas (nombre y línea a la izquierda, precio en la cara de titulares a la derecha).
+// `destacado: true` pone la marca (`marca_destacado`, por defecto «De la casa»). Sin precio, sin precio.
+// El menú del día (`menu_dia` {titulo, precio, texto con una línea por cosa}) va al lado en un pozo con sombra dura
+// que se queda fijo al bajar; sin él, la carta ocupa todo el ancho.
+import { seccion, agrupar, lineas } from '../../data/site';
+import { slugify } from '../../lib/slug';
+import { ajuste } from '../../data/tipo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const grupos = s ? agrupar(s.platos, (p) => p.categoria) : [];
+const usados = new Set<string>();
+const anclas = grupos.map((g, i) => {
+  let a = `${id}-${slugify(g.grupo) || 'grupo-' + (i + 1)}`;
+  while (usados.has(a)) a += '-' + (i + 1);
+  usados.add(a);
+  return a;
+});
+const marca = (s?.marca_destacado as string | undefined)?.trim() || 'De la casa';
+const m = s?.menu_dia;
+const lineasMenu = lineas(m?.texto);
+const externo = (u: string) => /^https?:/.test(u);
+---
+
+{
+  s && (
+    <Banda id={id} color="papel">
+      {(s.titulo || s.antetitulo || s.texto) && (
+        <div class="cabeza cabeza--partida">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+          {s.texto && <p class="entrada">{s.texto}</p>}
+        </div>
+      )}
+      {(grupos.length > 0 || m) && (
+        <div class:list={['carta-rejilla', { 'carta-rejilla--menu': m && grupos.length > 0 }]}>
+          {grupos.length > 0 && (
+            <div class="carta-grupos">
+              {grupos.map((g, i) => (
+                <section class="carta-grupo medida" id={anclas[i]} aria-label={g.grupo || undefined}>
+                  {g.grupo && <h3 class="carta-categoria ajusta" style={ajuste(g.grupo)}>{g.grupo}</h3>}
+                  <ul>
+                    {g.items.map((p) => (
+                      <li class="plato">
+                        <span class="plato-nombre">{p.nombre}</span>
+                        {p.precio && <span class="plato-precio">{p.precio}</span>}
+                        {p.texto && <span class="plato-texto">{p.texto}</span>}
+                        {p.destacado && <span class="plato-marca">{marca}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          )}
+          {m && (
+            <aside class="menu-dia pozo medida" aria-label={m.titulo || 'Menú del día'}>
+              {m.titulo && <h3 class="menu-dia-titulo ajusta" style={ajuste(m.titulo)}>{m.titulo}</h3>}
+              {m.precio && <p class="menu-dia-precio">{m.precio}</p>}
+              {lineasMenu.length > 0 && (
+                <ul class="menu-dia-lineas">
+                  {lineasMenu.map((l) => <li>{l}</li>)}
+                </ul>
+              )}
+            </aside>
+          )}
+        </div>
+      )}
+      {s.cta?.url && (
+        <p class="botones">
+          <a class="btn" href={s.cta.url} {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>{s.cta.texto}</a>
+        </p>
+      )}
+    </Banda>
+  )
+}

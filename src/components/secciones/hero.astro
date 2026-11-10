@@ -1,0 +1,82 @@
+---
+// Portada (Stage del tema Carnival; en el móvil: titular, foto y botones): a la izquierda el antetítulo, el título enorme en mayúsculas de cartel (nunca
+// parte palabras: se ajusta a su columna), una frase, dos botones y una línea de detalles cortos (`items`, solo
+// `titulo`, en pastillas con filete). A la derecha la foto (`imagen`) como lámina clavada: borde de tinta, sombra dura
+// y un grado y medio de giro, con el reclamo (`destacado` {texto, precio}) en una etiqueta que pisa la esquina.
+// El texto nunca va encima de la foto. Sin `imagen`, el reclamo sale bajo los botones. Sin `cta`, el primer botón
+// llama; sin `cta_secundario`, lleva al mapa.
+import { seccion, site, tel, mapa } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import { ajuste } from '../../data/tipo';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const principal = s?.cta?.url ? s.cta : c.telefono ? { texto: `Llamar al ${c.telefono}`, url: tel(c.telefono) } : null;
+const secundario = s?.cta_secundario?.url
+  ? s.cta_secundario
+  : c.direccion
+    ? { texto: 'Cómo llegar', url: mapa(c.direccion) }
+    : null;
+const externo = (u: string) => /^https?:/.test(u);
+const detalles = (s?.items ?? []).map((it) => String(it?.titulo ?? '').trim()).filter(Boolean);
+const titulo = s?.titulo || site.nombre;
+const d = s?.destacado ?? null;
+---
+
+{
+  s && (
+    <section id={id} class="portada banda banda--papel">
+      <div class:list={['contenedor portada-rejilla', { 'portada-rejilla--foto': s.imagen }]}>
+        <div class="portada-cabeza medida">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          <h1 class="portada-titulo ajusta" style={ajuste(titulo)}>{titulo}</h1>
+          {s.texto && <p class="entrada">{s.texto}</p>}
+        </div>
+        {s.imagen && (
+          <div class="portada-foto">
+            <figure class="lamina">
+              <Imagen src={s.imagen} alt={altHero()} ancho={1920} alto={1440} prioridad={primera} />
+            </figure>
+            {d && (
+              <p class="etiqueta">
+                {d.texto && <span>{d.texto}</span>}
+                {d.precio && <span class="etiqueta-precio">{d.precio}</span>}
+              </p>
+            )}
+          </div>
+        )}
+        <div class="portada-acciones">
+          {(principal || secundario) && (
+            <div class="botones">
+              {principal && (
+                <a class="btn" href={principal.url} {...(externo(principal.url) && { rel: 'noopener', target: '_blank' })}>
+                  {principal.texto}
+                </a>
+              )}
+              {secundario && (
+                <a class="btn-sec" href={secundario.url} {...(externo(secundario.url) && { rel: 'noopener', target: '_blank' })}>
+                  {secundario.texto}
+                </a>
+              )}
+            </div>
+          )}
+          {!s.imagen && d && (
+            <p class="portada-reclamo">
+              <span class="etiqueta">
+                {d.texto && <span>{d.texto}</span>}
+                {d.precio && <span class="etiqueta-precio">{d.precio}</span>}
+              </span>
+            </p>
+          )}
+          {detalles.length > 0 && (
+            <ul class="portada-detalles">
+              {detalles.map((t) => <li>{t}</li>)}
+            </ul>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

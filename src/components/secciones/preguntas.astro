@@ -1,0 +1,33 @@
+---
+// Preguntas frecuentes: titular y `preguntas` [{pregunta, respuesta}] en filas con filetes de 2 px: la pregunta en
+// mayúsculas a la izquierda y la respuesta a la derecha, todas a la vista (es lo que leen los buscadores y los
+// asistentes de IA). Sin preguntas no se pinta.
+import { seccion } from '../../data/site';
+import { ajuste } from '../../data/tipo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const preguntas = (s?.preguntas ?? []).filter((p) => p && String(p.pregunta ?? '').trim());
+---
+
+{
+  s && preguntas.length > 0 && (
+    <Banda id={id} color="papel">
+      <div class="cabeza">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      </div>
+      <ul class="respuestas">
+        {preguntas.map((p) => (
+          <li>
+            <div class="medida">
+              <h3 class="respuestas-pregunta ajusta" style={ajuste(p.pregunta)}>{p.pregunta}</h3>
+            </div>
+            {p.respuesta && <p class="respuestas-texto">{p.respuesta}</p>}
+          </li>
+        ))}
+      </ul>
+    </Banda>
+  )
+}

@@ -1,0 +1,120 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: bar-tapas
+nombre: Bar de tapas
+descripcion: "Web alegre y a todo el ancho para bares de tapas: precios en grande, carta, almuerzos, vermut y grupos."
+sectores:
+  - bar
+  - { id: cerveceria, nombre: Cervecería }
+  - { id: vermuteria, nombre: Vermutería }
+  - { id: taberna, nombre: Taberna }
+  - hosteleria
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: pizarra, nombre: La pizarra }
+  - { id: especialidades, nombre: Las de la casa }
+  - { id: carta, nombre: Carta }
+  - { id: sobre, nombre: El bar }
+  - { id: momentos, nombre: Cuándo venir }
+  - { id: galeria, nombre: Fotos }
+  - { id: grupos, nombre: Grupos y reservas }
+  - { id: horario-ubicacion, nombre: Horario y ubicación }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: contacto, nombre: Contacto }
+estilo: carnival
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-bar-tapas.noexpertise.com
+activa: true
+orden: 680
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada, la pizarra y las de la casa.
+paginas:
+  - { ruta: carta, titulo: Carta, secciones: "carta" }
+  - { ruta: el-bar, titulo: El bar, secciones: "sobre; momentos; galeria" }
+  - { ruta: reservas, titulo: Reservas y horario, secciones: "grupos; horario-ubicacion; preguntas; contacto" }
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu bar"
+    pregunta: "¿Cómo se llama tu bar, qué se come y se bebe, y cuál es tu reclamo?"
+    ayuda: "Por ejemplo: tapa con cada caña, vermut de grifo, almuerzos, raciones para compartir o fútbol en la tele. Si quieres que salga un precio en la portada (la caña y tapa, el vermut), dilo con su precio."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.destacado.texto, secciones.hero.destacado.precio]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está el bar y cómo os pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: pizarra
+    titulo: "La pizarra"
+    pregunta: "¿Qué precios quieres que se vean en grande? Uno por línea: la caña, el vermut, el bocadillo, el menú…"
+    ayuda: "Por ejemplo: «Caña, 1,80 €» o «Menú del día de martes a viernes, 13 €». Solo los que tú digas."
+    tipo: lista
+    campos: [secciones.pizarra.precios]
+  - id: especialidades
+    titulo: "Las de la casa"
+    pregunta: "¿Qué tapas o raciones os piden más? Dos o tres bastan, con su precio si quieres."
+    ayuda: "Las bravas, las croquetas, el bocadillo de calamares… Luego puedes poner la foto de cada una."
+    tipo: lista
+    campos: [secciones.especialidades.platos]
+  - id: carta
+    titulo: "Tu carta"
+    pregunta: "Cuéntame lo que tenéis: una cosa por línea, con el precio si quieres."
+    ayuda: "Puedes poner delante la parte de la carta: Tapas, Raciones, Bocadillos, Para beber. Si lo prefieres, añádelo luego en Contenido."
+    tipo: lista
+    campos: [secciones.carta.platos]
+  - id: menu-dia
+    titulo: "Menú del día"
+    pregunta: "¿Tenéis menú del día? Cuéntame qué días, qué incluye y cuánto cuesta."
+    ayuda: "Si no tenéis, salta este paso."
+    tipo: texto
+    campos: [secciones.carta.titulo, secciones.carta.texto, secciones.carta.menu_dia.titulo, secciones.carta.menu_dia.precio, secciones.carta.menu_dia.texto]
+  - id: sobre
+    titulo: "El bar"
+    pregunta: "¿Quién está detrás del bar y desde cuándo? ¿Qué tiene de especial?"
+    ayuda: "La historia en dos frases, quién lo lleva, cómo es la barra o la terraza y qué gente viene."
+    tipo: texto
+    campos: [secciones.sobre.titulo, secciones.sobre.declaracion, secciones.sobre.texto, secciones.sobre.items]
+  - id: momentos
+    titulo: "Cuándo venir"
+    pregunta: "¿Qué planes tenéis a lo largo del día o de la semana? Uno por línea, con el horario si lo hay."
+    ayuda: "Por ejemplo: almuerzos de 9 a 12, vermut del domingo, partidos en la tele, cenas de grupo los viernes o la terraza en verano."
+    tipo: lista
+    campos: [secciones.momentos.momentos]
+  - id: grupos
+    titulo: "Grupos y reservas"
+    pregunta: "¿Hacéis reservas para grupos? Cuéntame para cuántos, cómo se reserva y si tenéis menú de grupo."
+    ayuda: "Cuadrillas, cumpleaños, cenas de empresa. Por teléfono, por WhatsApp, con cuántos días de antelación."
+    tipo: texto
+    campos: [secciones.grupos.titulo, secciones.grupos.texto, secciones.grupos.items, secciones.grupos.nota]
+  - id: horario
+    titulo: "Horario"
+    pregunta: "¿Qué días y a qué horas abrís?"
+    ayuda: "Por ejemplo: de martes a jueves de 9:00 a 23:30, viernes y sábado hasta la 1:00 y lunes cerrado."
+    tipo: lista
+    campos: [secciones.horario-ubicacion.horario]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Por ejemplo: si ponéis tapa, si hace falta reservar, si hay opciones sin gluten, si echáis el fútbol o si se puede ir con perro."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, las de tus tapas, tu barra y tu terraza."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.sobre.imagen, secciones.galeria.galeria, secciones.horario-ubicacion.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

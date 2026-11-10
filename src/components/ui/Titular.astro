@@ -1,0 +1,19 @@
+---
+// Cabeza de sección del tema Carnival: antetítulo discreto (etiqueta en la cara de texto, minúsculas normales),
+// título en mayúsculas de cartel que nunca parte palabras (se ajusta a su columna, src/data/tipo.ts) y una línea
+// de entrada. Sin campos, no pinta nada.
+import { ajuste } from '../../data/tipo';
+interface Props { titulo?: string; antetitulo?: string; texto?: string; class?: string; nivel?: 1 | 2; claseTitulo?: string }
+const { titulo, antetitulo, texto, class: clase = '', nivel = 2, claseTitulo = 'titulo-seccion' } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={['titular medida', clase]}>
+      {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+      {titulo && <H class:list={[claseTitulo, 'ajusta']} style={ajuste(titulo)}>{titulo}</H>}
+      {texto && <p class="entrada">{texto}</p>}
+    </div>
+  )
+}

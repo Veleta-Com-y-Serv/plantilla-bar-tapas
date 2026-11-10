@@ -1,0 +1,185 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas siempre planas (nunca una lista dentro de un elemento de lista). Precios siempre entre comillas.
+nombre: Bar Casa Tino
+eslogan: Tapas, raciones y vermut de grifo en la calle del Laurel de Logroño.
+sector: bar
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#0b2a6f"
+  acento: "#d01c29"
+  fondo: "#f8eed5"
+  texto: "#1d0b07"
+contacto:
+  telefono: "941 000 000"
+  email: hola@barcasatino.es
+  direccion: Calle del Laurel 9, 26001 Logroño (La Rioja)
+  horario: "De martes a jueves, de 9:00 a 23:30; viernes y sábado, de 9:00 a 1:00; domingo, de 11:00 a 16:00. Lunes cerrado."
+  whatsapp: "+34 600 000 000"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Carta, url: "/#carta" }
+  - { texto: El bar, url: "/#sobre" }
+  - { texto: Grupos, url: "/#grupos" }
+  - { texto: Horario, url: "/#horario-ubicacion" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Reservar, url: "/#grupos" }
+seo:
+  titulo: Bar Casa Tino, tapas y vermut en la calle del Laurel de Logroño
+  descripcion: "Bar de tapas en la calle del Laurel de Logroño: tapa con cada consumición, raciones para compartir, vermut de grifo, almuerzos y terraza."
+  tipo: BarOrPub
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: En la calle del Laurel, Logroño
+    titulo: Cañas, vermut y tapas.
+    texto: "Una tapa con cada caña y raciones para compartir en la terraza."
+    imagen: /fotos/hero.jpg
+    destacado: { texto: Caña y tapa, precio: "2,20 €" }
+    cta: { texto: Reservar para un grupo, url: "/#grupos" }
+    cta_secundario: { texto: Ver la carta, url: "/#carta" }
+    items:
+      - { titulo: Tapa con cada consumición }
+      - { titulo: Vermut de grifo }
+      - { titulo: Terraza en la calle }
+      - { titulo: Fútbol en la tele }
+
+  pizarra:
+    activa: true
+    antetitulo: Precios con IVA incluido
+    titulo: Precios de toda la vida.
+    texto: "Y con cada caña o cada vino, una tapa de la casa."
+    precios:
+      - { precio: "1,80 €", texto: Caña de cerveza }
+      - { precio: "2,50 €", texto: Vermut de grifo con su aceituna }
+      - { precio: "4,50 €", texto: Bocadillo de calamares }
+      - { precio: "13 €", texto: "Menú del día, de martes a viernes" }
+
+  especialidades:
+    activa: true
+    antetitulo: De la casa
+    titulo: Las que más salen.
+    texto: "Se hacen cada mañana en nuestra cocina. Cuando se acaban, se acaban."
+    platos:
+      - { nombre: Patatas bravas, texto: "Patata cortada a mano, nuestra salsa brava y alioli.", precio: "6,50 €", imagen: /fotos/especialidad-1.jpg }
+      - { nombre: Croquetas de jamón, texto: "Seis unidades, cremosas por dentro y crujientes por fuera.", precio: "7,00 €", imagen: /fotos/especialidad-2.jpg }
+      - { nombre: Bocadillo de calamares, texto: "En pan del día, con su limón. El de los domingos.", precio: "4,50 €", imagen: /fotos/especialidad-3.jpg }
+
+  carta:
+    activa: true
+    antetitulo: La carta
+    titulo: Tapas, raciones y bocadillos.
+    texto: "Pregúntanos por las tapas del día. Si tienes alguna alergia, dínoslo y te decimos qué puedes tomar."
+    marca_destacado: De la casa
+    menu_dia:
+      titulo: Menú del día
+      precio: "13 €"
+      texto: |
+        De martes a viernes, a mediodía
+        Primero, segundo y postre a elegir entre tres
+        Pan y bebida incluidos
+        Cambia cada semana
+    platos:
+      - { nombre: Gilda, texto: "Guindilla, anchoa y aceituna.", precio: "1,80 €", categoria: Tapas }
+      - { nombre: Champiñón a la plancha, texto: "Con gamba y nuestro mojo de ajo.", precio: "2,20 €", categoria: Tapas, destacado: true }
+      - { nombre: Pincho de tortilla, texto: "Jugosa, con o sin cebolla.", precio: "2,50 €", categoria: Tapas }
+      - { nombre: Oreja a la plancha, texto: "Crujiente, con salsa picante.", precio: "2,80 €", categoria: Tapas }
+      - { nombre: Patatas bravas, precio: "6,50 €", categoria: Raciones, destacado: true }
+      - { nombre: Croquetas de jamón, texto: "Seis unidades.", precio: "7,00 €", categoria: Raciones }
+      - { nombre: Pimientos de Padrón, precio: "6,00 €", categoria: Raciones }
+      - { nombre: Pulpo a la gallega, texto: "Con cachelos y pimentón de la Vera.", precio: "15,00 €", categoria: Raciones }
+      - { nombre: Jamón ibérico, texto: "Cortado a cuchillo, con pan con tomate.", precio: "16,00 €", categoria: Raciones }
+      - { nombre: Bocadillo de calamares, precio: "4,50 €", categoria: Bocadillos, destacado: true }
+      - { nombre: Bocadillo de lomo con queso, precio: "4,80 €", categoria: Bocadillos }
+      - { nombre: Bocadillo de tortilla, texto: "El del almuerzo.", precio: "3,80 €", categoria: Bocadillos }
+      - { nombre: Caña, precio: "1,80 €", categoria: Para beber }
+      - { nombre: Vermut de grifo, precio: "2,50 €", categoria: Para beber }
+      - { nombre: Vino de Rioja, texto: "Joven o crianza, por copas.", precio: "2,20 €", categoria: Para beber }
+      - { nombre: Mosto o refresco, precio: "2,00 €", categoria: Para beber }
+
+  sobre:
+    activa: true
+    antetitulo: El bar
+    titulo: Un bar de barrio desde 1987.
+    declaracion: "Aquí se viene a tomar algo, a ver el partido y a charlar en la barra."
+    texto: |
+      Casa Tino lo abrió el padre de Marta en una esquina de la calle del Laurel. Hoy lo lleva ella, con la misma barra de madera y la misma salsa brava.
+
+      La cocina es casera y de siempre: lo que sale cada día se hace esa mañana. Entre semana viene la gente del barrio; los fines de semana, cuadrillas de toda la ciudad.
+    imagen: /fotos/sobre.jpg
+    items:
+      - { titulo: Cocina casera, texto: "Croquetas, bravas y tortilla hechas aquí cada mañana." }
+      - { titulo: Barra y terraza, texto: "Barra larga dentro y barriles en la calle para tomar algo de pie." }
+      - { titulo: Para todos, texto: "Vienen familias, cuadrillas y vecinos de toda la vida." }
+
+  momentos:
+    activa: true
+    antetitulo: Un plan para cada hora
+    titulo: Del almuerzo a la última.
+    texto: "Abrimos a las nueve y la cocina no cierra hasta las once de la noche."
+    momentos:
+      - { cuando: "De 9:00 a 12:00", titulo: Almuerzos, texto: "Bocadillo, tortilla o huevos con chorizo, con su vino o su café." }
+      - { cuando: "De 12:00 a 15:00", titulo: Vermut, texto: "De grifo, con su aceituna y su naranja, y unas patatas para picar." }
+      - { cuando: Días de partido, titulo: Fútbol, texto: "Todos los partidos en la tele grande de la barra, con sonido." }
+      - { cuando: Viernes y sábados, titulo: Cenas de grupo, texto: "Raciones al centro para cuadrillas, cumpleaños y despedidas." }
+
+  galeria:
+    activa: true
+    antetitulo: "@barcasatino"
+    titulo: Así se está en el Tino.
+    galeria:
+      - /fotos/galeria-1.jpg
+      - /fotos/galeria-2.jpg
+      - /fotos/galeria-3.jpg
+      - /fotos/galeria-4.jpg
+      - /fotos/galeria-5.jpg
+    cta: { texto: Síguenos en Instagram, url: "https://www.instagram.com/" }
+
+  grupos:
+    activa: true
+    antetitulo: Grupos y reservas
+    titulo: ¿Venís muchos? Os hacemos sitio.
+    texto: "Para cuadrillas, cumpleaños y cenas de empresa: raciones al centro o menú de grupo cerrado."
+    items:
+      - { titulo: Hasta 30 personas en el comedor }
+      - { titulo: Menú de grupo desde 22 € }
+      - { titulo: Reserva con dos días }
+    cta: { texto: Reservar por WhatsApp, url: "https://wa.me/34600000000?text=Hola%2C%20quiero%20reservar%20para%20un%20grupo" }
+    cta_secundario: { texto: Llamar al bar, url: "tel:941000000" }
+    nota: "Entre semana, si venís menos de seis, no hace falta reservar."
+
+  horario-ubicacion:
+    activa: true
+    antetitulo: Ven a vernos
+    titulo: Horario y dónde estamos.
+    texto: "En plena calle del Laurel, a dos minutos del paseo del Espolón. Aparcamiento público en la plaza del Ayuntamiento."
+    imagen: /fotos/fachada.jpg
+    mapa: true
+    horario:
+      - { dia: Lunes, horas: Cerrado }
+      - { dia: Martes a jueves, horas: "9:00 a 23:30" }
+      - { dia: Viernes y sábado, horas: "9:00 a 1:00" }
+      - { dia: Domingo, horas: "11:00 a 16:00" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de venir.
+    preguntas:
+      - { pregunta: "¿Ponéis tapa con la consumición?", respuesta: "Sí. Con cada caña, vino o refresco te ponemos una tapa de la casa, que cambia cada día." }
+      - { pregunta: "¿Hace falta reservar?", respuesta: "Para tomar algo en la barra o en la terraza, no. Para grupos de más de seis o para cenar el fin de semana, mejor llamar antes." }
+      - { pregunta: "¿Tenéis opciones sin gluten?", respuesta: "Varias tapas y raciones se pueden preparar sin gluten y tenemos pan sin gluten. Avísanos al pedir." }
+      - { pregunta: "¿Echáis el fútbol?", respuesta: "Sí, todos los partidos de liga y de copa, en la tele de la barra y con sonido." }
+      - { pregunta: "¿Se puede ir con niños o con perro?", respuesta: "Con niños, claro: tenemos tronas. Los perros son bienvenidos en la terraza." }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Llámanos o escríbenos.
+    texto: "Reservas de grupo, encargos o cualquier pregunta. Te contestamos el mismo día."

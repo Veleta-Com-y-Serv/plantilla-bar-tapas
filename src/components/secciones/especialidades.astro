@@ -1,0 +1,46 @@
+---
+// Las de la casa: titular partido (título a la izquierda, entrada a la derecha) y `platos` [{nombre, texto, precio,
+// imagen}] como láminas clavadas con su precio en una etiqueta del color de acento que pisa la esquina, el nombre en
+// mayúsculas y una línea. De 1 a 6 platos (tres por fila en escritorio). Sin `imagen`, un pozo de papel con el
+// nombre y el precio; sin `precio`, sin etiqueta.
+import { seccion } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import { ajuste } from '../../data/tipo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const platos = (s?.platos ?? []).slice(0, 6);
+---
+
+{
+  s && (s.titulo || platos.length > 0) && (
+    <Banda id={id} color="papel">
+      <div class="cabeza cabeza--partida">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+        {s.texto && <p class="entrada">{s.texto}</p>}
+      </div>
+      {platos.length > 0 && (
+        <ul class:list={['platillos', `platillos--${platos.length}`]}>
+          {platos.map((p) => (
+            <li class:list={['platillo', { 'platillo--sin-foto': !p.imagen }]}>
+              {p.imagen && (
+                <figure class="lamina">
+                  <Imagen src={p.imagen} alt={altFicha(p)} ancho={1200} alto={1500} />
+                  {p.precio && <span class="etiqueta etiqueta--acento"><span class="etiqueta-precio">{p.precio}</span></span>}
+                </figure>
+              )}
+              <div class="platillo-cuerpo medida">
+                <h3 class="platillo-nombre ajusta" style={ajuste(p.nombre)}>{p.nombre}</h3>
+                {p.texto && <p class="platillo-texto">{p.texto}</p>}
+                {!p.imagen && p.precio && <p class="platillo-precio-suelto">{p.precio}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Banda>
+  )
+}

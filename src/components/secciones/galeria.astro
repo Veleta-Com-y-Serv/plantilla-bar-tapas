@@ -1,0 +1,42 @@
+---
+// Fotos: titular y botón (`cta`; sin él, a `redes.instagram`) y la `galeria` como láminas clavadas en una pared:
+// en escritorio, tamaños distintos sobre doce columnas (un patrón de cinco que se repite) con giros de un grado;
+// en el móvil, la primera ancha y el resto de dos en dos. Cualquier número de fotos vale.
+import { seccion, site } from '../../data/site';
+import { altGaleria } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const fotos = s?.galeria ?? [];
+const boton = s?.cta?.url ? s.cta : site.redes.instagram ? { texto: 'Síguenos en Instagram', url: site.redes.instagram } : null;
+const externo = (u: string) => /^https?:/.test(u);
+---
+
+{
+  s && (s.titulo || fotos.length > 0) && (
+    <Banda id={id} color="papel">
+      <div class="cabeza cabeza--partida">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+        {boton && (
+          <p>
+            <a class="btn-sec" href={boton.url} {...(externo(boton.url) && { rel: 'noopener', target: '_blank' })}>{boton.texto}</a>
+          </p>
+        )}
+      </div>
+      {fotos.length > 0 && (
+        <ul class:list={['pared', { 'pared--1': fotos.length === 1 }]}>
+          {fotos.map((f, i) => (
+            <li>
+              <figure class="lamina">
+                <Imagen src={f} alt={altGaleria(i)} ancho={1400} alto={1400} />
+              </figure>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Banda>
+  )
+}

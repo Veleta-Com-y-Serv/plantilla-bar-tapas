@@ -1,0 +1,51 @@
+---
+// Cabecera «feria» (tema Carnival): barra fija a todo el ancho sobre el papel, con un filete de 2 px del segundo
+// acento debajo. A la izquierda el nombre en mayúsculas de cartel (o el logo), luego los enlaces del menú y a la
+// derecha el botón de la cabecera (reservar) con su sombra dura. En móvil, menú plegable con <details>.
+// La portada no va debajo de la cabecera: el main deja su hueco (padding-top) y nada se pisa.
+// Script mínimo al final (cerrar el menú al pulsar un enlace). Aspecto en global.css.
+import { site } from '../data/site';
+import type { Enlace } from '../data/site';
+interface Props { variante?: string; cta?: Enlace | null }
+const { variante = 'feria', cta = null } = Astro.props;
+const externo = (u: string) => /^https?:/.test(u);
+---
+
+<header class={`cabecera cabecera--${variante}`} data-cabecera>
+  <div class="contenedor cabecera-fila">
+    <a href="/" class="marca" aria-label={`${site.nombre}, inicio`}>
+      {
+        site.logo ? (
+          <img src={site.logo} alt={site.nombre} class="marca-logo" width="160" height="40" />
+        ) : (
+          <span class="marca-nombre">{site.nombre}</span>
+        )
+      }
+    </a>
+    <nav class="cabecera-nav" aria-label="Menú principal">
+      {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+    </nav>
+    {cta && cta.url && <a href={cta.url} class="btn cabecera-cta" {...(externo(cta.url) && { rel: 'noopener', target: '_blank' })}>{cta.texto}</a>}
+    {
+      site.menu.length > 0 && (
+        <details class="menu-movil">
+          <summary>
+            <span class="menu-movil-icono" aria-hidden="true" />
+            <span>Menú</span>
+          </summary>
+          <nav class="menu-movil-panel" aria-label="Menú">
+            {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+            {cta && cta.url && <a href={cta.url} class="btn">{cta.texto}</a>}
+          </nav>
+        </details>
+      )
+    }
+  </div>
+</header>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.menu-movil a').forEach(function (a) {
+      a.addEventListener('click', function () { a.closest('details').open = false; });
+    });
+  });
+</script>

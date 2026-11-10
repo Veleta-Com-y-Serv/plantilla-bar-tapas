@@ -1,0 +1,34 @@
+---
+// La pizarra: banda entera del color de acento con los precios que se cantan en grande (`precios` [{precio,
+// texto}]): la cifra en mayúsculas de cartel y debajo lo que es, separados por barras de 2 px. Trama de semitono en
+// la esquina de arriba (nunca debajo de una cifra). Sin precios, solo el titular; sin nada, no se pinta.
+// Los precios salen tal cual los escribe el cliente («1,80 €», «desde 12 €»); vacío = solo el texto.
+import { seccion } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const precios = s?.precios ?? [];
+const pinta = !!(s && (s.titulo || s.texto || precios.length));
+---
+
+{
+  pinta && s && (
+    <Banda id={id} color="acento" semitono>
+      <div class="cabeza">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      </div>
+      {precios.length > 0 && (
+        <ul class="pizarra-lista">
+          {precios.map((p) => (
+            <li>
+              {p.precio && <p class:list={['pizarra-cifra', { 'pizarra-cifra--larga': p.precio.length > 9 }]}>{p.precio}</p>}
+              {p.texto && <p class="pizarra-que">{p.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Banda>
+  )
+}

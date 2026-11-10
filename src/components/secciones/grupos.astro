@@ -1,0 +1,59 @@
+---
+// Grupos y reservas: banda entera del segundo acento (color primario) con la frase a tamaño de cartel, la entrada,
+// `items` (solo `titulo`: condiciones cortas) en filas con barras de 2 px y los dos botones: `cta` (normalmente
+// WhatsApp; sin él, el WhatsApp o el teléfono de contacto) y `cta_secundario` (sin él, llamar). `nota` debajo.
+import { seccion, site, tel, whatsapp } from '../../data/site';
+import { ajuste } from '../../data/tipo';
+import Banda from '../ui/Banda.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const c = site.contacto;
+const principal = s?.cta?.url
+  ? s.cta
+  : c.whatsapp
+    ? { texto: 'Reservar por WhatsApp', url: whatsapp(c.whatsapp, `Hola, quiero reservar en ${site.nombre}`) }
+    : c.telefono
+      ? { texto: `Llamar al ${c.telefono}`, url: tel(c.telefono) }
+      : null;
+const secundario = s?.cta_secundario?.url
+  ? s.cta_secundario
+  : c.telefono && principal && !principal.url.startsWith('tel:')
+    ? { texto: 'Llamar', url: tel(c.telefono) }
+    : null;
+const externo = (u: string) => /^https?:/.test(u);
+const datos = (s?.items ?? []).map((it) => String(it?.titulo ?? '').trim()).filter(Boolean);
+const nota = typeof s?.nota === 'string' ? s.nota.trim() : '';
+---
+
+{
+  s && (
+    <Banda id={id} color="fuerte">
+      <div class="medida">
+        {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+        <h2 class="grupos-titulo ajusta" style={ajuste(s.titulo || 'Reservas')}>{s.titulo || 'Reservas'}</h2>
+      </div>
+      <div class="grupos-rejilla">
+        <div>
+          {s.texto && <p class="entrada">{s.texto}</p>}
+          {(principal || secundario) && (
+            <div class="botones">
+              {principal && (
+                <a class="btn" href={principal.url} {...(externo(principal.url) && { rel: 'noopener', target: '_blank' })}>{principal.texto}</a>
+              )}
+              {secundario && (
+                <a class="btn-sec" href={secundario.url} {...(externo(secundario.url) && { rel: 'noopener', target: '_blank' })}>{secundario.texto}</a>
+              )}
+            </div>
+          )}
+          {nota && <p class="nota">{nota}</p>}
+        </div>
+        {datos.length > 0 && (
+          <ul class="grupos-datos">
+            {datos.map((t) => <li>{t}</li>)}
+          </ul>
+        )}
+      </div>
+    </Banda>
+  )
+}

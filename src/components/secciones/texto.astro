@@ -1,0 +1,55 @@
+---
+// Apartado de texto genérico (`tipo: texto`): banda de papel a todo el ancho. Con `imagen`, texto a la izquierda y
+// lámina clavada a la derecha; sin ella, titular y párrafos. `items` {titulo, texto} en dos columnas con filete y
+// `cta` opcional.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const ps = parrafos(s?.texto);
+const externo = (u: string) => /^https?:/.test(u);
+const pinta = !!(s && (s.titulo || s.antetitulo || ps.length || s.items.length || s.imagen || s.cta?.url));
+---
+
+{
+  pinta && s && (
+    <Banda id={id} color="papel">
+      <div class:list={[s.imagen ? 'partido partido--foto-dcha' : 'max-w-5xl']}>
+        <div class="medida">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+          {ps.length > 0 && (
+            <div class="parrafos">
+              {ps.map((p) => <p>{p}</p>)}
+            </div>
+          )}
+          {s.items.length > 0 && (
+            <ul class="lista-filete">
+              {s.items.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto mt-1">{it.texto}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && (
+            <p class="botones">
+              <a class="btn" href={s.cta.url} {...(externo(s.cta.url) && { rel: 'noopener', target: '_blank' })}>{s.cta.texto}</a>
+            </p>
+          )}
+        </div>
+        {s.imagen && (
+          <div class="partido-foto">
+            <figure class="lamina">
+              <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1400} alto={1050} />
+            </figure>
+          </div>
+        )}
+      </div>
+    </Banda>
+  )
+}

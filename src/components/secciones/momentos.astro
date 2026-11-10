@@ -1,0 +1,35 @@
+---
+// Cuándo venir: titular y `momentos` [{cuando, titulo, texto}] en una tira de casillas con borde de tinta y sombra
+// dura (cuatro por fila en escritorio): la etiqueta de cuándo («De 9:00 a 12:00», «Días de partido») en el segundo
+// acento, el plan en mayúsculas de cartel (Almuerzos, Vermut, Fútbol…) y una línea. Sin momentos, solo el titular.
+import { seccion } from '../../data/site';
+import { ajuste } from '../../data/tipo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const momentos = s?.momentos ?? [];
+---
+
+{
+  s && (s.titulo || momentos.length > 0) && (
+    <Banda id={id} color="papel">
+      <div class="cabeza cabeza--partida">
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+        {s.texto && <p class="entrada">{s.texto}</p>}
+      </div>
+      {momentos.length > 0 && (
+        <ul class="tira">
+          {momentos.map((m) => (
+            <li class="medida">
+              {m.cuando && <p class="tira-cuando">{m.cuando}</p>}
+              {m.titulo && <h3 class="tira-titulo ajusta" style={ajuste(m.titulo)}>{m.titulo}</h3>}
+              {m.texto && <p class="tira-texto">{m.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Banda>
+  )
+}

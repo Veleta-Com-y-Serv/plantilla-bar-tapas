@@ -1,0 +1,11 @@
+---
+// Banda a todo el ancho de la ventana (fondo pleno de borde a borde) con el contenido en el contenedor
+// (1440 px como mucho, 16 px de margen en móvil). `color`: papel | acento | fuerte. `semitono`: trama en una esquina.
+interface Props { id?: string; color?: string; class?: string; etiqueta?: string; contenedor?: boolean; semitono?: boolean }
+const { id, color = 'papel', class: clase = '', etiqueta, contenedor = true, semitono = false } = Astro.props;
+---
+
+<section id={id} class:list={['banda', `banda--${color}`, clase]} aria-label={etiqueta}>
+  {semitono && <span class="semitono" aria-hidden="true" />}
+  {contenedor ? <div class="contenedor"><slot /></div> : <slot />}
+</section>

@@ -1,0 +1,98 @@
+---
+// Horario y dónde estamos: a la izquierda el titular, el horario (`horario` [{dia, horas}]; sin él,
+// `contacto.horario`) en filas con filetes de 2 px (el día en mayúsculas, las horas a la derecha; «Cerrado» sale
+// apagado), la dirección y los botones «Cómo llegar» y teléfono. A la derecha la fachada (`imagen`) como lámina
+// clavada o, sin foto, un pozo de semitono con el punto del mapa. Con `mapa: true` y dirección, «Ver el mapa aquí»
+// carga Google Maps en ese hueco solo al pulsarlo (sin cookies de terceros antes); sin JavaScript abre otra pestaña.
+import { seccion, site, mapa, tel } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const c = site.contacto;
+const conMapa = !!(s && s.mapa === true && c.direccion);
+const incrustado = c.direccion ? `https://maps.google.com/maps?q=${encodeURIComponent(c.direccion)}&z=16&output=embed` : '';
+const panel = !!(s && (s.imagen || conMapa));
+const cerrado = (h: string) => /cerrado/i.test(h);
+const pinta = !!(s && (s.titulo || s.texto || s.horario.length || c.horario || c.direccion || c.telefono || panel));
+---
+
+{
+  pinta && s && (
+    <Banda id={id} color="papel">
+      <div class:list={[panel ? 'partido partido--foto-dcha' : 'max-w-4xl']}>
+        <div class="medida">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {s.horario.length > 0 ? (
+            <table class="horario">
+              <caption class="sr-only">Horario</caption>
+              <tbody>
+                {s.horario.map((h) => (
+                  <tr class:list={[{ cerrado: cerrado(String(h.horas ?? '')) }]}>
+                    <th scope="row">{h.dia}</th>
+                    <td>{h.horas}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            c.horario && <p class="horario-suelto">{c.horario}</p>
+          )}
+          {c.direccion && (
+            <p class="direccion">
+              <Icono nombre="mapa" />
+              <span>{c.direccion}</span>
+            </p>
+          )}
+          {(c.direccion || c.telefono) && (
+            <div class="botones">
+              {c.direccion && (
+                <a class="btn" href={mapa(c.direccion)} rel="noopener" target="_blank">Cómo llegar</a>
+              )}
+              {c.telefono && (
+                <a class="btn-sec" href={tel(c.telefono)}>
+                  <Icono nombre="telefono" tam={18} /> {c.telefono}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+        {panel && (
+          <div class="partido-foto">
+            <div class:list={['lamina mapa-panel', { 'mapa-panel--plano': !s.imagen }]} data-mapa-panel>
+              {s.imagen ? <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1400} alto={1050} /> : <Icono nombre="mapa" tam={64} />}
+              {conMapa && (
+                <div class="mapa-acciones">
+                  <a class="btn-sec" href={mapa(c.direccion)} rel="noopener" target="_blank" data-mapa={incrustado}>
+                    <Icono nombre="mapa" tam={18} /> Ver el mapa aquí
+                  </a>
+                  <p class="mapa-aviso">Al pulsar se carga Google Maps.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </Banda>
+  )
+}
+<script is:inline>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-mapa]');
+    if (!a || !a.dataset.mapa) return;
+    e.preventDefault();
+    var panel = a.closest('[data-mapa-panel]');
+    if (!panel || panel.querySelector('iframe')) return;
+    var f = document.createElement('iframe');
+    f.src = a.dataset.mapa;
+    f.title = 'Mapa';
+    f.loading = 'lazy';
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    panel.appendChild(f);
+    a.parentNode.remove();
+  });
+</script>

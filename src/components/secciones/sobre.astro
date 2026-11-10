@@ -1,0 +1,51 @@
+---
+// El bar: lámina vertical a la izquierda (`imagen`, clavada con un grado de giro) y a la derecha el titular, la
+// `declaracion` (frase corta con una barra del color de acento), los párrafos de `texto` (separados por una línea en
+// blanco) y `items` {titulo, texto} en filas con filetes de 2 px. Sin foto, el texto ocupa la fila.
+import { seccion, parrafos } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const ps = parrafos(s?.texto);
+const declaracion = typeof s?.declaracion === 'string' ? s.declaracion.trim() : '';
+const pinta = !!(s && (s.titulo || s.antetitulo || declaracion || ps.length || s.items.length || s.imagen));
+---
+
+{
+  pinta && s && (
+    <Banda id={id} color="papel">
+      <div class:list={[s.imagen ? 'partido' : 'max-w-4xl']}>
+        {s.imagen && (
+          <div class="partido-foto">
+            <figure class="lamina">
+              <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1600} />
+            </figure>
+          </div>
+        )}
+        <div class="medida">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} />
+          {declaracion && <p class="declaracion">{declaracion}</p>}
+          {ps.length > 0 && (
+            <div class="parrafos">
+              {ps.map((p) => <p>{p}</p>)}
+            </div>
+          )}
+          {s.items.length > 0 && (
+            <ul class="filas">
+              {s.items.map((it) => (
+                <li>
+                  <p class="filas-titulo">{it.titulo}</p>
+                  {it.texto && <p class="filas-texto">{it.texto}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </Banda>
+  )
+}

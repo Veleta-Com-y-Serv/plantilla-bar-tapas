@@ -1,0 +1,52 @@
+---
+// Contacto: a la izquierda el titular y las vías (teléfono, WhatsApp, email y dirección) en filas, el dato en
+// mayúsculas de cartel; a la derecha el formulario en un pozo con borde de tinta y sombra dura (mailto; la
+// plataforma lo conecta al publicar). Todo de site.yaml → contacto.
+import { seccion, site, tel, whatsapp, mapa } from '../../data/site';
+import Banda from '../ui/Banda.astro';
+import Titular from '../ui/Titular.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const id = Astro.props.id;
+const s = seccion(id);
+const c = site.contacto;
+---
+
+{
+  s && (
+    <Banda id={id} color="papel">
+      <div class="partido partido--foto-dcha">
+        <div class="medida">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+          {(c.telefono || c.whatsapp || c.email || c.direccion) && <ul class="vias">
+            {c.telefono && (
+              <li>
+                <a href={tel(c.telefono)}><span class="vias-etiqueta">Teléfono</span><span class="vias-dato">{c.telefono}</span></a>
+              </li>
+            )}
+            {c.whatsapp && (
+              <li>
+                <a href={whatsapp(c.whatsapp, `Hola, os escribo desde la web de ${site.nombre}`)} rel="noopener" target="_blank">
+                  <span class="vias-etiqueta">WhatsApp</span><span class="vias-dato">{c.whatsapp}</span>
+                </a>
+              </li>
+            )}
+            {c.email && (
+              <li>
+                <a href={`mailto:${c.email}`}><span class="vias-etiqueta">Email</span><span class="vias-dato vias-dato--correo">{c.email}</span></a>
+              </li>
+            )}
+            {c.direccion && (
+              <li>
+                <a href={mapa(c.direccion)} rel="noopener" target="_blank"><span class="vias-etiqueta">Dirección</span><span class="vias-dato vias-dato--correo">{c.direccion}</span></a>
+              </li>
+            )}
+          </ul>}
+        </div>
+        <div class="pozo">
+          <FormularioContacto prefijo={`c-${id}`} boton="Enviar mensaje" />
+        </div>
+      </div>
+    </Banda>
+  )
+}

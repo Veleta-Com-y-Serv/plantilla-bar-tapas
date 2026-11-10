@@ -1,0 +1,57 @@
+[
+ {
+  "fichero": "fotos/hero.jpg",
+  "aspecto": "4:3",
+  "prompt": "Primer plano de la barra de madera gastada de un bar de tapas español a mediodía: una caña de cerveza recién tirada con dos dedos de espuma, un vaso de vermut rojo con hielo, aceituna y rodaja de naranja, una ración de patatas bravas con salsa roja y alioli, dos gildas en un platito y un plato de croquetas doradas. Luz dura de mediodía entrando de lado, sombras marcadas, colores intensos y cálidos, objetivo de 50 mm, poca profundidad de campo, azulejos blancos desenfocados al fondo. Sin gente, sin texto, sin carteles, sin etiquetas legibles ni logotipos."
+ },
+ {
+  "fichero": "fotos/especialidad-1.jpg",
+  "aspecto": "3:4",
+  "prompt": "Ración de patatas bravas caseras en un plato de barro blanco: patatas cortadas irregulares y muy doradas, salsa brava roja intensa y alioli por encima, palillos de madera clavados, sobre una barra de zinc de bar. Primer plano muy cercano, luz dura de flash, colores saturados, fondo oscuro desenfocado. Sin gente, sin texto, sin logotipos."
+ },
+ {
+  "fichero": "fotos/especialidad-2.jpg",
+  "aspecto": "3:4",
+  "prompt": "Seis croquetas caseras de jamón recién fritas, muy doradas y crujientes, una partida por la mitad que deja ver el interior cremoso, en un plato blanco de bar sobre una barra de madera. Primer plano muy cercano, luz dura lateral, colores cálidos e intensos, fondo desenfocado. Sin gente, sin texto, sin logotipos."
+ },
+ {
+  "fichero": "fotos/especialidad-3.jpg",
+  "aspecto": "3:4",
+  "prompt": "Bocadillo de calamares a la romana en pan de barra crujiente abierto, rebosante de anillas de calamar rebozadas y doradas, con un gajo de limón, sobre papel de estraza encima de una barra de bar de zinc. Primer plano muy cercano, luz dura de mediodía, colores saturados, fondo desenfocado. Sin gente, sin texto, sin logotipos."
+ },
+ {
+  "fichero": "fotos/sobre.jpg",
+  "aspecto": "3:4",
+  "prompt": "Interior de un bar de tapas de barrio español por la tarde, sin gente: barra larga de madera oscura con frontal de zinc, taburetes altos de madera, grifos de cerveza cromados, estanterías con botellas sin etiquetas legibles, paredes de azulejo blanco y verde, ristras de pimientos secos colgadas y una vitrina con tapas sobre la barra. Luz cálida de bombillas y luz de calle entrando por la puerta, encuadre vertical, aspecto real y vivido. Sin gente, sin texto, sin carteles, sin televisores, sin logotipos."
+ },
+ {
+  "fichero": "fotos/galeria-1.jpg",
+  "aspecto": "1:1",
+  "prompt": "Terraza de un bar en una calle estrecha de casco antiguo español a última hora de la tarde: barriles de madera usados como mesas altas, taburetes de metal, cañas de cerveza y platitos de tapas sobre los barriles, fachadas de piedra y balcones con macetas, luz dorada rasante y sombras largas. Gente solo de espaldas y muy lejos, desenfocada. Sin texto, sin carteles, sin logotipos."
+ },
+ {
+  "fichero": "fotos/galeria-2.jpg",
+  "aspecto": "1:1",
+  "prompt": "Vermut rojo de grifo servido en vaso ancho con hielo, una aceituna rellena pinchada en un palillo y media rodaja de naranja, junto a un sifón antiguo de cristal y un platito de patatas fritas y berberechos, sobre una barra de mármol blanco de bar. Primer plano, luz dura de mediodía, colores muy vivos. Sin gente, sin texto, sin etiquetas legibles, sin logotipos."
+ },
+ {
+  "fichero": "fotos/galeria-3.jpg",
+  "aspecto": "1:1",
+  "prompt": "Vista cenital de una mesa de madera de bar llena de raciones para compartir en grupo: pulpo a la gallega con pimentón sobre tabla de madera, pimientos de Padrón con sal gorda, un plato de jamón cortado fino, tortilla de patata partida en cuadraditos, pan y varias cañas y vasos de vino tinto. Luz dura y cálida, colores intensos, sombras marcadas. Solo se ven manos sin caras cogiendo tapas. Sin texto, sin logotipos."
+ },
+ {
+  "fichero": "fotos/galeria-4.jpg",
+  "aspecto": "1:1",
+  "prompt": "Almuerzo de media mañana en la barra de un bar español: bocadillo de tortilla de patata en pan de barra partido por la mitad, un porrón de cristal con vino tinto, un café cortado en vaso de cristal y un platito de olivas, sobre barra de madera. Luz de mañana entrando por la ventana, sol directo y sombras duras, colores cálidos. Sin gente, sin texto, sin logotipos."
+ },
+ {
+  "fichero": "fotos/galeria-5.jpg",
+  "aspecto": "1:1",
+  "prompt": "Primer plano de una mano (sin cara) tirando una caña de cerveza de un grifo cromado de bar, la cerveza dorada cayendo en un vaso inclinado con espuma blanca, gotas de condensación en el cristal, barra de zinc mojada. Luz dura de flash, fondo oscuro, colores saturados y alto contraste. Sin texto, sin logotipos, sin marcas en el grifo."
+ },
+ {
+  "fichero": "fotos/fachada.jpg",
+  "aspecto": "4:3",
+  "prompt": "Fachada de un bar de tapas pequeño en la esquina de una calle peatonal de casco antiguo español al atardecer: puerta de madera pintada de rojo abierta, toldo de lona roja sin rótulo, cristaleras con la luz cálida del interior encendida, dos barriles con taburetes en la acera y adoquines. Luz dorada, colores intensos. Fachada sin rótulo, sin texto legible, sin logotipos y sin gente."
+ }
+]
